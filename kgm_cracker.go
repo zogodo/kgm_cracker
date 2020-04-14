@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-	"os/exec"
+	"os"
 	"runtime"
+	"strings"
+	"io/ioutil"
+	"net/http"
 )
 
 // CGO_ENABLED: 0
@@ -24,17 +26,58 @@ func (h Handler) ServeHTTP(rep http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+
+	defer fmt.Scan("%c")
+
+	var err error
+	var file *os.File
 	var handler Handler
-	fmt.Printf("Please add\n\t127.0.0.1 yinyuezhushou.com\nto your hosts file (C:\\Windows\\System32\\drivers\\etc\\hosts)\n\n\n")
-	
+	fmt.Printf("Please add\n")
+	fmt.Printf("127.0.0.1 yinyuezhushou.com\n")
+	fmt.Printf("to your hosts file (C:\\Windows\\System32\\drivers\\etc\\hosts)\n\n")
+
 	switch runtime.GOOS {
 	case "windows":
-		exec.Command("explorer.exe", "C:\\Windows\\System32\\drivers\\etc\\").Run()
+
+		//exec.Command("explorer.exe", "C:\\Windows\\System32\\drivers\\etc\\").Run()
+		filePath := "C:\\Windows\\System32\\drivers\\etc\\hosts"
+		fileAdd := "\n127.0.0.1 yinyuezhushou.com"
+
+		file, err = os.OpenFile(filePath, os.O_RDONLY|os.O_APPEND, 0666)
+		if err != nil {
+			fmt.Print(err)
+			goto end
+		}
+		data, err := ioutil.ReadAll(file)
+		if err != nil {
+			fmt.Print(err)
+			goto end
+		}
+
+		fileContentStr := string(data)
+		fmt.Sprintf("hosts content:\n%s\n\n", fileContentStr)
+		if strings.Contains(fileContentStr, fileAdd) {
+			fmt.Printf("hosts was OK\n")
+			goto end
+		}
+
+		n, err := file.Write([]byte(fileContentStr+fileAdd))
+		if err != nil || n < 1 {
+			fmt.Print(err)
+			goto end
+		}
+		fmt.Printf("hosts is OK\n")
+
 	default:
 		fmt.Printf("Maybe you should run on Windows\n")
 	}
 
-	err := http.ListenAndServe("127.0.0.1:8008", handler)
+end:
+	if file != nil {
+		file.Close()
+	}
+
+	err = http.ListenAndServe("127.0.0.1:8008", handler)
 	if err != nil {
 		panic(err)
 	}
