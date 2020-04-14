@@ -41,7 +41,7 @@ func main() {
 
 		//exec.Command("explorer.exe", "C:\\Windows\\System32\\drivers\\etc\\").Run()
 		filePath := "C:\\Windows\\System32\\drivers\\etc\\hosts"
-		fileAdd := "\n127.0.0.1 yinyuezhushou.com"
+		fileAdd := "\n127.0.0.1 yinyuezhushou.com\n"
 
 		err := os.Chmod(filePath, 0777)
 		if err != nil {
