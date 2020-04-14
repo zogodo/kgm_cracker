@@ -1,26 +1,10 @@
-# kgm_cracker
-cracker for kgm-pro
+# [《KgmPro音乐转换器》](https://link.zhihu.com/?target=https%3A//mortalworld.net/kgm-download.html) 破解方法:
 
-[中文文档](README_CN.md)
+![strawberry](img/strawberry.jpg)
 
-[KGM-PRO NCM音乐转换器](https://www.yinyuezhushou.com/kgm?from=1)
+1. 下载并打开 kgm_cracker.ex
+2. 同意以管理员权限运行
+3. 打开《KgmPro音乐转换器》点击 **点击激活**
+4. 随便输入任何东西
+5. 点击 **激活**
 
-## DISCLAIMER 
-
-Only for learning related technology, do not use for illegal purposes (this software can download without limits via the proxy)
-
-## Usage
-
-![how_to_use](img/how_to_use.gif)
-
-1. Open the cracker
-2. Add `127.0.0.1 yinyuezhushou.com` to your hosts file (`C:\\Windows\\System32\\drivers\\etc\\hosts`)
-3. Click **点击激活**
-4. Random input some numbers
-5. Click **激活**
-
-## Compile
-
-```bash
-go generate
-```
