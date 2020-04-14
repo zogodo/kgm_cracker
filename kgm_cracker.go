@@ -27,8 +27,6 @@ func (h Handler) ServeHTTP(rep http.ResponseWriter, req *http.Request) {
 
 func main() {
 
-	defer fmt.Scan("%c")
-
 	var err error
 	var file *os.File
 	var handler Handler
