@@ -43,27 +43,33 @@ func main() {
 		filePath := "C:\\Windows\\System32\\drivers\\etc\\hosts"
 		fileAdd := "\n127.0.0.1 yinyuezhushou.com"
 
+		err := os.Chmod(filePath, 0777)
+		if err != nil {
+			fmt.Printf("err0[%v]", err)
+			goto end
+		}
+
 		file, err = os.OpenFile(filePath, os.O_RDONLY|os.O_APPEND, 0666)
 		if err != nil {
-			fmt.Print(err)
+			fmt.Printf("err1[%v]", err)
 			goto end
 		}
 		data, err := ioutil.ReadAll(file)
 		if err != nil {
-			fmt.Print(err)
+			fmt.Printf("err2[%v]", err)
 			goto end
 		}
 
 		fileContentStr := string(data)
-		fmt.Sprintf("hosts content:\n%s\n\n", fileContentStr)
+		//fmt.Printf("hosts content:\n%s\n\n", fileContentStr)
 		if strings.Contains(fileContentStr, fileAdd) {
-			fmt.Printf("hosts was OK\n")
+			fmt.Printf("host was OK\n")
 			goto end
 		}
 
-		n, err := file.Write([]byte(fileContentStr+fileAdd))
+		n, err := file.Write([]byte(fileAdd))
 		if err != nil || n < 1 {
-			fmt.Print(err)
+			fmt.Printf("err4[%v]", err)
 			goto end
 		}
 		fmt.Printf("hosts is OK\n")
