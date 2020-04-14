@@ -1,4 +1,4 @@
-# [《KgmPro音乐转换器》](https://link.zhihu.com/?target=https%3A//mortalworld.net/kgm-download.html) 破解方法:
+# [《KgmPro音乐转换器》](https://mortalworld.net/kgm-download.html) 破解方法:
 
 ![strawberry](img/strawberry.jpg)
 
